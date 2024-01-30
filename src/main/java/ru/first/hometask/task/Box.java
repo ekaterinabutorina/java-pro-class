@@ -47,7 +47,7 @@ public class Box {
         System.out.println("This is the second pririty test.");
     }
 
-    @Test(priority = 1)
+    @Test(priority = 10)
     @CsvSource(param = "10,Java ,20, true")
     public void firstTest(int a, String b, int c, boolean d) {
         System.out.println("This is the first pririty test with params a = " + a + " b = " + b + " c = " + c + " d = " + d);

@@ -30,6 +30,10 @@ public class TestRunner {
             }
 
             if (method.isAnnotationPresent(Test.class)) {
+                int priority = method.getAnnotation(Test.class).priority();
+                if (priority < 1 || priority > 10) {
+                    throw new RuntimeException("Ошибка! Неверно указан приоритет у метода " + method.getName());
+                }
                 testMethods.add(method);
             }
 
