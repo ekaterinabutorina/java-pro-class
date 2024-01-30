@@ -1,9 +1,9 @@
-package task;
+package ru.first.hometask.task;
 
-import annotation.AfterSuite;
-import annotation.BeforeSuite;
-import annotation.CsvSource;
-import annotation.Test;
+import ru.first.hometask.annotation.AfterSuite;
+import ru.first.hometask.annotation.BeforeSuite;
+import ru.first.hometask.annotation.CsvSource;
+import ru.first.hometask.annotation.Test;
 
 public class Box {
 
@@ -48,7 +48,7 @@ public class Box {
     }
 
     @Test(priority = 1)
-    @CsvSource(param = "10,Java,20,true")
+    @CsvSource(param = "10,Java ,20, true")
     public void firstTest(int a, String b, int c, boolean d) {
         System.out.println("This is the first pririty test with params a = " + a + " b = " + b + " c = " + c + " d = " + d);
     }

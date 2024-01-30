@@ -1,5 +1,7 @@
-import runner.TestRunner;
-import task.Box;
+package ru.first.hometask;
+
+import ru.first.hometask.runner.TestRunner;
+import ru.first.hometask.task.Box;
 
 import java.lang.reflect.InvocationTargetException;
 

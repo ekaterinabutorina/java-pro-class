@@ -1,10 +1,10 @@
-package runner;
+package ru.first.hometask.runner;
 
-import annotation.AfterSuite;
-import annotation.BeforeSuite;
-import annotation.CsvSource;
-import annotation.Test;
-import task.Box;
+import ru.first.hometask.annotation.AfterSuite;
+import ru.first.hometask.annotation.BeforeSuite;
+import ru.first.hometask.annotation.CsvSource;
+import ru.first.hometask.annotation.Test;
+import ru.first.hometask.task.Box;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,17 +18,13 @@ public class TestRunner {
     public static void runTests(Class cls) throws InvocationTargetException, IllegalAccessException {
         Method[] methods = cls.getDeclaredMethods();
         Box box = new Box(3, "task-box");
-        int countBeforeSuite = 0;
-        int countAfterSuite = 0;
         Method firstMethod = null;
         Method lastMethod = null;
         List<Method> testMethods = new ArrayList<>();
         for (Method method : methods) {
             if (method.isAnnotationPresent(BeforeSuite.class)) {
-                countBeforeSuite++;
-                if (countBeforeSuite > 1) {
-                    System.out.println("Ошибка! методов с аннотацией @BeforeSuite больше одного");
-                    return;
+                if (firstMethod != null) {
+                    throw new RuntimeException("Ошибка! методов с аннотацией @BeforeSuite больше одного");
                 }
                 firstMethod = method;
             }
@@ -38,18 +34,11 @@ public class TestRunner {
             }
 
             if (method.isAnnotationPresent(AfterSuite.class)) {
-                countAfterSuite++;
-                if (countAfterSuite > 1) {
-                    System.out.println("Ошибка! методов с аннотацией @AfterSuite больше одного");
-                    return;
+                if (lastMethod != null) {
+                    throw new RuntimeException("Ошибка! методов с аннотацией @AfterSuite больше одного");
                 }
                 lastMethod = method;
             }
-        }
-
-        if (countBeforeSuite < 1 || countAfterSuite < 1) {
-            System.out.println("Ошибка! метода с аннотацией @BeforeSuite или @AfterSuite нет.");
-            return;
         }
 
         firstMethod.invoke(box);
@@ -65,10 +54,15 @@ public class TestRunner {
                         method.invoke(box);
                         return;
                     }
-                    List<String> annotationParams = List.of(method.getAnnotation(CsvSource.class).param().split(","));
+                    List<String> annotationParams = List.of(method.getAnnotation(CsvSource.class).param().replace(" ", "").split(","));
 
                     Class[] methodParamTypes = method.getParameterTypes();
                     Object[] params = new Object[annotationParams.size()];
+
+                    if (methodParamTypes.length != annotationParams.size()) {
+                        throw new RuntimeException("Ошибка! В аннотации @CsvSource \"" + method.getAnnotation(CsvSource.class).param()
+                                + "\" и методе \"" + method.getName() + "\" не совпадает кол-во параметров");
+                    }
 
                     for (int i = 0; i < annotationParams.size(); i++) {
                         if (methodParamTypes[i] == String.class) {
