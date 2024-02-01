@@ -60,5 +60,21 @@ public class Application {
                         .mapToInt(Employee::getAge)
                         .average().getAsDouble()
         );
+
+        //  Найдите в списке слов самое длинное
+        List<String> words = List.of(
+                "qqqqq",
+                "wwwwwwwwwwwwwwwwwww",
+                "ppppppppppp",
+                "llllllllllllllllllllllllllll",
+                "eeeeeeee",
+                "OOOOOOOOOOOOOOOOOOOOOOOO",
+                "tt");
+
+        System.out.println("The longest word is = " +
+                words.stream()
+                        .sorted(Comparator.comparing(String::length).reversed())
+                        .collect(Collectors.toList()).get(0)
+        );
     }
 }
