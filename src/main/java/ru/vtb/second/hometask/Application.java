@@ -2,8 +2,11 @@ package ru.vtb.second.hometask;
 
 import ru.vtb.second.hometask.employee.Employee;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Application {
@@ -29,7 +32,6 @@ public class Application {
                         .collect(Collectors.toList())
                         .get(2)
         );
-
 
         List<Employee> employees = List.of(
                 new Employee("Ivan", 23, Employee.Position.ACCOUNTANT),
@@ -73,6 +75,34 @@ public class Application {
 
         System.out.println("The longest word is = " +
                 words.stream()
+                        .sorted(Comparator.comparing(String::length).reversed())
+                        .collect(Collectors.toList()).get(0)
+        );
+
+        // Имеется строка с набором слов в нижнем регистре, разделенных пробелом. Постройте хеш-мапы, в которой будут хранится пары: слово - сколько раз оно встречается во входной строке
+        String data = "ccc aaa aa aaaa zzzzz jjjjj bbb bb aa aaa bbbb zzz jjjjj zzz zzz bbb bb aaa";
+        Map<String, Long> wordsMap = Arrays.stream(data.split(" ")).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        System.out.println("The Map of words is = " + wordsMap);
+
+        //Отпечатайте в консоль строки из списка в порядке увеличения длины слова, если слова имеют одинаковую длины, то должен быть сохранен алфавитный порядок
+//        System.out.println("The ordered by length and then by alphabet data is = "+
+//                Arrays.stream(data.split(" ")).distinct().sorted(Comparator.comparing(String::length)).collect(Collectors.toList()));
+        System.out.println("The ordered by length and then by alphabet data is = " +
+                Arrays.stream(data.split(" "))
+                        .distinct()
+                        .sorted(Comparator.comparing(String::length).thenComparing(Comparator.naturalOrder()))
+                        .collect(Collectors.toList()));
+
+        //Имеется массив строк, в каждой из которых лежит набор из 5 строк, разделенных пробелом, найдите среди всех слов самое длинное, если таких слов несколько, получите любое из них
+        List<String> datas = List.of("ggg hhh jjj kkk lll",
+                "hhhhh kkkk iii lll",
+                "bbbbb jjj fff iiiiiiiiiiiiiiiiiiiiiiiiii kkk lll",
+                "ooo pppppppp vvvvvvvvv uuuuuu", "iiii uuuu gggggggg yyyyyyyy jjjjjjjjjjjj"
+        );
+        System.out.println("The longest word is = " +
+                datas.stream()
+                        .map(v -> v.split(" "))
+                        .flatMap(Arrays::stream)
                         .sorted(Comparator.comparing(String::length).reversed())
                         .collect(Collectors.toList()).get(0)
         );
