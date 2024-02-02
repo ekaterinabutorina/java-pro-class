@@ -20,8 +20,9 @@ public class Application {
         System.out.println("The third biggest number is = " +
                 numbers.stream()
                         .sorted(Comparator.reverseOrder())
-                        .collect(Collectors.toList())
-                        .get(2)
+                        .skip(2)
+                        .findFirst()
+                        .get()
         );
 
         // Найдите в списке целых чисел 3-е наибольшее «уникальное» число (пример: 5 2 10 9 4 3 10 1 13 => 9, в отличие от прошлой задачи здесь разные 10 считает за одно число)
@@ -29,8 +30,9 @@ public class Application {
                 numbers.stream()
                         .sorted(Comparator.reverseOrder())
                         .distinct()
-                        .collect(Collectors.toList())
-                        .get(2)
+                        .skip(2)
+                        .findFirst()
+                        .get()
         );
 
         List<Employee> employees = List.of(
@@ -75,8 +77,8 @@ public class Application {
 
         System.out.println("The longest word is = " +
                 words.stream()
-                        .sorted(Comparator.comparing(String::length).reversed())
-                        .collect(Collectors.toList()).get(0)
+                        .max(Comparator.comparing(String::length))
+                        .get()
         );
 
         // Имеется строка с набором слов в нижнем регистре, разделенных пробелом. Постройте хеш-мапы, в которой будут хранится пары: слово - сколько раз оно встречается во входной строке
@@ -103,8 +105,7 @@ public class Application {
                 datas.stream()
                         .map(v -> v.split(" "))
                         .flatMap(Arrays::stream)
-                        .sorted(Comparator.comparing(String::length).reversed())
-                        .collect(Collectors.toList()).get(0)
+                        .max(Comparator.comparing(String::length)).get()
         );
     }
 }
