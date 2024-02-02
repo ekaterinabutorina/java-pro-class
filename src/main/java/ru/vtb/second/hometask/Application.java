@@ -87,8 +87,6 @@ public class Application {
         System.out.println("The Map of words is = " + wordsMap);
 
         //Отпечатайте в консоль строки из списка в порядке увеличения длины слова, если слова имеют одинаковую длины, то должен быть сохранен алфавитный порядок
-//        System.out.println("The ordered by length and then by alphabet data is = "+
-//                Arrays.stream(data.split(" ")).distinct().sorted(Comparator.comparing(String::length)).collect(Collectors.toList()));
         System.out.println("The ordered by length and then by alphabet data is = " +
                 Arrays.stream(data.split(" "))
                         .distinct()
