@@ -15,7 +15,7 @@ public class UserRepository {
     }
 
     public void createUsersTable() {
-        jdbcTemplate.execute("CREATE TABLE users (ID BIGSERIAL PRIMARY KEY, USERNAME VARCHAR(255) UNIQUE)");
+        jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS users (ID BIGSERIAL PRIMARY KEY, USERNAME VARCHAR(255) UNIQUE)");
     }
 
     public void deleteUser(Long userId) {
