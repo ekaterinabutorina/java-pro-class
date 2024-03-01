@@ -15,29 +15,34 @@ import java.util.List;
 @RestController
 public class ClientProductController {
 
-    private final ClientProductsService service;
+    private final ClientProductsService clientProductsService;
 
-    public ClientProductController(ClientProductsService service) {
-        this.service = service;
+    public ClientProductController(ClientProductsService clientProductsService) {
+        this.clientProductsService = clientProductsService;
     }
 
-    @GetMapping("create/table")
+    @GetMapping("/create/table")
     public void createClientProductsTable() {
-        service.createClientProductsTable();
+        clientProductsService.createClientProductsTable();
     }
 
-    @PostMapping("clientproducts/create")
-    public ClientProductEntity addClientProduct(@RequestBody ClientProductEntity request) {
-        return service.addClientProduct(request.getId(), request.getAccount(), request.getBalance(), request.getType(), request.getUserId());
+    @PostMapping("/product")
+    public ResponseEntity<ClientProductEntity> addClientProduct(@RequestBody ClientProductEntity request) {
+        var result = clientProductsService.addClientProduct(request.getId(), request.getAccount(), request.getBalance(), request.getType(), request.getUserId());
+        return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("clientproducts/getbyid")
+    @GetMapping("/product")
+    // localhost:8080/product?id=1
     public ResponseEntity<ClientProductEntity> getClientProductByProductId(@RequestParam Long id) {
-        return service.getClientProductByProductId(id);
+        var result = clientProductsService.getClientProductByProductId(id);
+        return ResponseEntity.ok().body(result);
     }
 
-    @GetMapping("clientproducts/getbyproductid")
+    @GetMapping("/product/user")
+    // localhost:8080/product/user?userid=3
     public ResponseEntity<List<ClientProductEntity>> getClientProductsByUserId(@RequestParam Long userid) {
-        return service.getClientProductsByUserId(userid);
+        var result = clientProductsService.getClientProductsByUserId(userid);
+        return ResponseEntity.ok().body(result);
     }
 }

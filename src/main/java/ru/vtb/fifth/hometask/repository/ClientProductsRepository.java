@@ -1,6 +1,7 @@
 package ru.vtb.fifth.hometask.repository;
 
 import ru.vtb.fifth.hometask.entity.ClientProductEntity;
+import ru.vtb.fifth.hometask.repository.constants.SQL_CONSTANTS;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,14 +20,13 @@ public class ClientProductsRepository {
     }
 
     public void createClientProductsTable() {
-        jdbcTemplate.execute(
-                "CREATE TABLE IF NOT EXISTS client_products (ID BIGSERIAL PRIMARY KEY, ACCOUNT VARCHAR(255), BALANCE VARCHAR(255), TYPE VARCHAR(255), USERID BIGSERIAL)");
+        jdbcTemplate.execute(SQL_CONSTANTS.CREATE_CLIENT_PRODUCTS_TABLE);
     }
 
     public ClientProductEntity getClientProductByProductId(Long id) {
         ClientProductEntity result;
         try {
-            result = jdbcTemplate.queryForObject("SELECT * FROM client_products WHERE id = ?", clientProductRowMapper, id);
+            result = jdbcTemplate.queryForObject(SQL_CONSTANTS.SELECT_CLIENT_PRODUCT_BY_ID, clientProductRowMapper, id);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -34,13 +34,11 @@ public class ClientProductsRepository {
     }
 
     public List<ClientProductEntity> getClientProductsByUserId(Long userId) {
-        return jdbcTemplate.query("SELECT * FROM client_products WHERE userid = ?", clientProductRowMapper, userId);
+        return jdbcTemplate.query(SQL_CONSTANTS.SELECT_CLIENT_PRODUCTS_BY_USERID, clientProductRowMapper, userId);
     }
 
     public void createClientProduct(Long id, String account, String balance, String type, Long userId) {
-        jdbcTemplate.update(
-                "INSERT INTO client_products (id, account, balance, type, userid) VALUES (?, ?, ?, ?, ?) ON CONFLICT DO NOTHING",
-                id, account, balance, type, userId);
+        jdbcTemplate.update(SQL_CONSTANTS.INSERT_CLIENT_PRODUCTS, id, account, balance, type, userId);
     }
 
     private final RowMapper<ClientProductEntity> clientProductRowMapper = (resultSet, rowNum) -> {

@@ -32,13 +32,11 @@ public class ClientProductsService {
         return new ClientProductEntity(id, account, balance, type, userId);
     }
 
-    public ResponseEntity<ClientProductEntity> getClientProductByProductId(Long id) {
-        var result = repository.getClientProductByProductId(id);
-        return result == null ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(result);
+    public ClientProductEntity getClientProductByProductId(Long id) {
+        return repository.getClientProductByProductId(id);
     }
 
-    public ResponseEntity<List<ClientProductEntity>> getClientProductsByUserId(Long userId) {
-        var result = repository.getClientProductsByUserId(userId);
-        return result.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(result);
+    public List<ClientProductEntity> getClientProductsByUserId(Long userId) {
+        return repository.getClientProductsByUserId(userId);
     }
 }
