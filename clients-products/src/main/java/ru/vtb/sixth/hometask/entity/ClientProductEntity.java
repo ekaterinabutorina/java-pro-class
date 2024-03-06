@@ -1,4 +1,4 @@
-package ru.vtb.fifth.hometask.entity;
+package ru.vtb.sixth.hometask.entity;
 
 public class ClientProductEntity {
 

@@ -1,4 +1,4 @@
-package ru.vtb.fifth.hometask.repository.constants;
+package ru.vtb.sixth.hometask.repository.constants;
 
 public class SQL_CONSTANTS {
 

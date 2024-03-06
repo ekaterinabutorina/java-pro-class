@@ -1,4 +1,4 @@
-package ru.vtb.fifth.hometask;
+package ru.vtb.sixth.hometask;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,7 +1,7 @@
-package ru.vtb.fifth.hometask.repository;
+package ru.vtb.sixth.hometask.repository;
 
-import ru.vtb.fifth.hometask.entity.ClientProductEntity;
-import ru.vtb.fifth.hometask.repository.constants.SQL_CONSTANTS;
+import ru.vtb.sixth.hometask.entity.ClientProductEntity;
+import ru.vtb.sixth.hometask.repository.constants.SQL_CONSTANTS;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

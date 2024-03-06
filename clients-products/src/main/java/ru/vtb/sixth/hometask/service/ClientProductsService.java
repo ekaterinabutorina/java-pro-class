@@ -1,11 +1,10 @@
-package ru.vtb.fifth.hometask.service;
+package ru.vtb.sixth.hometask.service;
 
-import ru.vtb.fifth.hometask.entity.ClientProductEntity;
-import ru.vtb.fifth.hometask.repository.ClientProductsRepository;
+import ru.vtb.sixth.hometask.repository.ClientProductsRepository;
+import ru.vtb.sixth.hometask.entity.ClientProductEntity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
